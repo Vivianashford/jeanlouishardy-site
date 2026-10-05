@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Business Valuation Calculator | Service Business | Jean Louis Hardy</title>
+  <meta name="description" content="Calculate what your service business is worth in 60 seconds. Free EBITDA-based valuation using real PE buyer multiples for plumbing, HVAC, electrical, and more.">
+  <meta name="keywords" content="business valuation calculator, what is my business worth, EBITDA calculator, service business value, sell my business">
+  <link rel="canonical" href="https://jeanlouishardy.com/calculator.html">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free Business Valuation Calculator | Jean Louis Hardy">
+  <meta property="og:description" content="Calculate what your service business is worth in 60 seconds. Free EBITDA-based valuation using real PE buyer multiples.">
+  <meta property="og:url" content="https://jeanlouishardy.com/calculator.html">
+  <meta property="og:image" content="https://jeanlouishardy.com/jean-hero.webp">
+  <meta property="og:site_name" content="Jean Louis Hardy">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free Business Valuation Calculator | Jean Louis Hardy">
+  <meta name="twitter:description" content="Calculate what your service business is worth in 60 seconds. Free, no email required.">
+  <meta name="twitter:image" content="https://jeanlouishardy.com/jean-hero.webp">
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SDMM90P63D"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SDMM90P63D');</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Business Valuation Calculator",
+    "url": "https://jeanlouishardy.com/calculator.html",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    "provider": {
+      "@type": "Organization",
+      "name": "Jean Louis Hardy",
+      "url": "https://jeanlouishardy.com"
+    }
+  }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #e0e0e0; min-height: 100vh; }
+    .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    h1 { font-size: 2rem; color: #c8a24e; margin-bottom: 8px; }
+    .subtitle { color: #888; margin-bottom: 40px; font-size: 1.1rem; }
+    .calc-section { background: #141414; border: 1px solid #222; border-radius: 12px; padding: 32px; margin-bottom: 24px; }
+    .calc-section h2 { color: #c8a24e; font-size: 1.2rem; margin-bottom: 20px; }
+    .field { margin-bottom: 20px; }
+    .field label { display: block; color: #aaa; margin-bottom: 6px; font-size: 0.95rem; }
+    .field input, .field select { width: 100%; padding: 12px 16px; background: #1a1a1a; border: 1px solid #333; border-radius: 8px; color: #fff; font-size: 1rem; }
+    .field input:focus, .field select:focus { border-color: #c8a24e; outline: none; }
+    .field .hint { color: #666; font-size: 0.8rem; margin-top: 4px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .btn { display: block; width: 100%; padding: 16px; background: #c8a24e; color: #000; font-size: 1.1rem; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; margin-top: 8px; }
+    .btn:hover { background: #d4b35e; }
+    #results { display: none; }
+    .result-card { background: #141414; border: 2px solid #c8a24e; border-radius: 12px; padding: 32px; text-align: center; margin-bottom: 24px; }
+    .result-card .label { color: #888; font-size: 0.95rem; margin-bottom: 8px; }
+    .result-card .value { color: #c8a24e; font-size: 2.5rem; font-weight: 700; }
+    .result-card .range { color: #aaa; font-size: 1.1rem; margin-top: 4px; }
+    .factors { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    .factor { background: #141414; border: 1px solid #222; border-radius: 8px; padding: 16px; }
+    .factor .name { color: #888; font-size: 0.85rem; }
+    .factor .score { font-size: 1.3rem; font-weight: 700; margin-top: 4px; }
+    .factor .score.good { color: #4caf50; }
+    .factor .score.mid { color: #ff9800; }
+    .factor .score.bad { color: #f44336; }
+    .cta-box { background: #1a1a0a; border: 1px solid #c8a24e33; border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-box p { color: #aaa; margin-bottom: 12px; }
+    .cta-box a { color: #c8a24e; text-decoration: none; font-weight: 600; }
+    .disclaimer { color: #555; font-size: 0.8rem; margin-top: 24px; text-align: center; }
+    footer { text-align: center; padding: 40px 20px; color: #555; font-size: 0.85rem; }
+    footer a { color: #c8a24e; text-decoration: none; }
+    .yn-grid { display: flex; flex-direction: column; gap: 12px; }
+    .yn-q { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid #1a1a1a; }
+    .yn-q span { flex: 1; font-size: 0.95rem; color: #ccc; }
+    .yn-btns { display: flex; gap: 8px; flex-shrink: 0; }
+    .yn-btn { padding: 8px 20px; border: 1px solid #333; background: #1a1a1a; color: #888; border-radius: 6px; cursor: pointer; font-size: 0.9rem; transition: all 0.15s; }
+    .yn-btn:hover { border-color: #c8a24e; color: #c8a24e; }
+    .yn-btn.yes-active { background: #1a2a1a; border-color: #4caf50; color: #4caf50; }
+    .yn-btn.no-active { background: #2a1a1a; border-color: #f44336; color: #f44336; }
+    @media (max-width: 600px) { .row, .factors { grid-template-columns: 1fr; } h1 { font-size: 1.5rem; } .result-card .value { font-size: 2rem; } .yn-q { flex-direction: column; align-items: flex-start; gap: 8px; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Business Valuation Calculator</h1>
+    <p class="subtitle">Estimate what your service business is worth in 60 seconds. Free. No email required.</p>
+
+    <div id="calculator">
+      <div class="calc-section">
+        <h2>1. Business Basics</h2>
+        <div class="field">
+          <label>Industry</label>
+          <select id="industry">
+            <option value="plumbing">Plumbing</option>
+            <option value="hvac">HVAC</option>
+            <option value="electrical">Electrical</option>
+            <option value="pest_control">Pest Control</option>
+            <option value="landscaping">Landscaping</option>
+            <option value="roofing">Roofing</option>
+            <option value="construction">General Construction</option>
+            <option value="other">Other Trade/Service</option>
+          </select>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>Annual Revenue ($)</label>
+            <input type="number" id="revenue" placeholder="e.g. 8000000" min="0">
+          </div>
+          <div class="field">
+            <label>Annual EBITDA ($)</label>
+            <input type="number" id="ebitda" placeholder="e.g. 1200000" min="0">
+            <div class="hint">Earnings before interest, taxes, depreciation & amortization</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-section">
+        <h2>2. Quick Assessment</h2>
+        <p style="color: #888; margin-bottom: 20px; font-size: 0.9rem;">Answer honestly. Buyers will find all of this in due diligence.</p>
+
+        <div class="yn-grid">
+          <div class="yn-q">
+            <span>Can you take 90 days off with no phone calls and the business runs fine?</span>
+            <div class="yn-btns"><button class="yn-btn" data-q="q1" data-v="1" onclick="ynSelect(this)">Yes</button><button class="yn-btn" data-q="q1" data-v="0" onclick="ynSelect(this)">No</button></div>
+          </div>
+          <div class="yn-q">
+            <span>Do you have written SOPs for your top 20 processes?</span>
+            <div class="yn-btns"><button class="yn-btn" data-q="q2" data-v="1" onclick="ynSelect(this)">Yes</button><button class="yn-btn" data-q="q2" data-v="0" onclick="ynSelect(this)">No</button></div>
+          </div>
+          <div class="yn-q">
+            <span>Is 50%+ of your revenue recurring (service agreements, contracts)?</span>
+            <div class="yn-btns"><button class="yn-btn" data-q="q3" data-v="1" onclick="ynSelect(this)">Yes</button><button class="yn-btn" data-q="q3" data-v="0" onclick="ynSelect(this)">No</button></div>
+          </div>
+          <div class="yn-q">
+            <span>Is your largest customer under 15% of total revenue?</span>
+            <div class="yn-btns"><button class="yn-btn" data-q="q4" data-v="1" onclick="ynSelect(this)">Yes</button><button class="yn-btn" data-q="q4" data-v="0" onclick="ynSelect(this)">No</button></div>
+          </div>
+          <div class="yn-q">
+            <span>Is your EBITDA growing year over year?</span>
+            <div class="yn-btns"><button class="yn-btn" data-q="q5" data-v="1" onclick="ynSelect(this)">Yes</button><button class="yn-btn" data-q="q5" data-v="0" onclick="ynSelect(this)">No</button></div>
+          </div>
+          <div class="yn-q">
+            <span>Do you have a management team that makes decisions without you?</span>
+            <div class="yn-btns"><button class="yn-btn" data-q="q6" data-v="1" onclick="ynSelect(this)">Yes</button><button class="yn-btn" data-q="q6" data-v="0" onclick="ynSelect(this)">No</button></div>
+          </div>
+          <div class="yn-q">
+            <span>Are your financials clean? (No personal expenses through the business)</span>
+            <div class="yn-btns"><button class="yn-btn" data-q="q7" data-v="1" onclick="ynSelect(this)">Yes</button><button class="yn-btn" data-q="q7" data-v="0" onclick="ynSelect(this)">No</button></div>
+          </div>
+          <div class="yn-q">
+            <span>Could a new hire get fully productive in under 30 days using your training systems?</span>
+            <div class="yn-btns"><button class="yn-btn" data-q="q8" data-v="1" onclick="ynSelect(this)">Yes</button><button class="yn-btn" data-q="q8" data-v="0" onclick="ynSelect(this)">No</button></div>
+          </div>
+          <div class="yn-q">
+            <span>Do you own your facility or have a long-term lease (5+ years)?</span>
+            <div class="yn-btns"><button class="yn-btn" data-q="q9" data-v="1" onclick="ynSelect(this)">Yes</button><button class="yn-btn" data-q="q9" data-v="0" onclick="ynSelect(this)">No</button></div>
+          </div>
+          <div class="yn-q">
+            <span>Is your equipment/fleet under 5 years old and well maintained?</span>
+            <div class="yn-btns"><button class="yn-btn" data-q="q10" data-v="1" onclick="ynSelect(this)">Yes</button><button class="yn-btn" data-q="q10" data-v="0" onclick="ynSelect(this)">No</button></div>
+          </div>
+          <div class="yn-q">
+            <span>Are you free of lawsuits, liens, and regulatory issues?</span>
+            <div class="yn-btns"><button class="yn-btn" data-q="q11" data-v="1" onclick="ynSelect(this)">Yes</button><button class="yn-btn" data-q="q11" data-v="0" onclick="ynSelect(this)">No</button></div>
+          </div>
+          <div class="yn-q">
+            <span>Would your key employees stay through an ownership change?</span>
+            <div class="yn-btns"><button class="yn-btn" data-q="q12" data-v="1" onclick="ynSelect(this)">Yes</button><button class="yn-btn" data-q="q12" data-v="0" onclick="ynSelect(this)">No</button></div>
+          </div>
+        </div>
+
+        <div id="score-bar" style="margin-top: 20px; display: none;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+            <span style="color: #888; font-size: 0.85rem;">Transferability Score</span>
+            <span id="score-label" style="font-weight: 700;"></span>
+          </div>
+          <div style="background: #222; border-radius: 8px; height: 12px; overflow: hidden;">
+            <div id="score-fill" style="height: 100%; border-radius: 8px; transition: width 0.3s;"></div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn" onclick="calculate()">Calculate My Business Value</button>
+    </div>
+
+    <div id="results">
+      <div class="result-card">
+        <div class="label">Estimated Business Value</div>
+        <div class="value" id="est-value">$0</div>
+        <div class="range" id="est-range"></div>
+      </div>
+
+      <div class="factors" id="factor-cards"></div>
+
+      <div id="deduction-section" style="display: none; margin-bottom: 24px;">
+        <h3 style="color: #f44336; margin-bottom: 12px; font-size: 1rem;">Risk Deductions</h3>
+        <div class="factors" id="deduction-cards"></div>
+        <p style="text-align: center; margin-top: 8px;"><span id="deduction-total" class="range"></span></p>
+      </div>
+
+      <div class="result-card" style="border-color: #333;">
+        <div class="label">Your EBITDA Multiple</div>
+        <div class="value" id="est-multiple" style="font-size: 2rem;">0x</div>
+        <div class="range" id="multiple-context"></div>
+      </div>
+
+      <div class="cta-box" style="background: linear-gradient(135deg, #1a1510 0%, #2a2015 100%); border: 2px solid #C9A84C; border-radius: 8px; padding: 28px; text-align: center; margin: 24px 0;">
+        <h3 style="color: #C9A84C; font-size: 1.3rem; margin-bottom: 8px;">want to increase your multiple by 1-2x?</h3>
+        <p style="color: #bbb; font-size: 0.95rem; margin-bottom: 20px;">book a free diagnostic call. we'll walk through your numbers, identify what's suppressing your valuation, and show you exactly what to fix.</p>
+        <a href="https://api.leadconnectorhq.com/widget/booking/jvo78MqD91Vq7gUiJTE4" target="_blank" rel="noopener noreferrer" style="display: inline-block; background: #C9A84C; color: #0a0a0a; padding: 14px 32px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 1rem; transition: background 0.2s;">Book Your Free Call &rarr;</a>
+        <p style="color: #666; font-size: 0.8rem; margin-top: 12px;">20 minutes. no pitch. just clarity on your exit options.</p>
+      </div>
+
+      <!-- Exit Map Lead Capture Card -->
+      <div id="exit-map-card" style="background: #1a1a2e; border: 2px solid #c9a84c; border-radius: 12px; padding: 36px 28px; margin: 32px 0; text-align: center; box-shadow: 0 8px 40px rgba(201,168,76,0.12);">
+        <div style="font-size: 28px; margin-bottom: 12px;">📊</div>
+        <h3 style="color: #c9a84c; font-size: 1.4rem; font-weight: 700; margin-bottom: 10px;">Want Your Personalized Exit Map?</h3>
+        <p style="color: #bbb; font-size: 0.95rem; line-height: 1.6; margin-bottom: 24px; max-width: 420px; margin-left: auto; margin-right: auto;">See how your numbers compare to actual exits in your industry. Get PE buyer contacts actively looking in your space.</p>
+
+        <form id="exit-map-form" style="max-width: 420px; margin: 0 auto;" onsubmit="submitExitMap(event)">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+            <input type="text" id="em-firstName" name="firstName" placeholder="First Name" required autocomplete="given-name" style="padding: 14px 16px; background: #111; border: 1px solid #333; border-radius: 8px; color: #fff; font-size: 1rem; outline: none;" onfocus="this.style.borderColor='#c9a84c'" onblur="this.style.borderColor='#333'">
+            <input type="tel" id="em-phone" name="phone" placeholder="(555) 123-4567" required autocomplete="tel" inputmode="tel" style="padding: 14px 16px; background: #111; border: 1px solid #333; border-radius: 8px; color: #fff; font-size: 1rem; outline: none;" onfocus="this.style.borderColor='#c9a84c'" onblur="this.style.borderColor='#333'">
+          </div>
+          <div style="margin-bottom: 16px;">
+            <input type="email" id="em-email" name="email" placeholder="you@company.com" required autocomplete="email" inputmode="email" style="width: 100%; padding: 14px 16px; background: #111; border: 1px solid #333; border-radius: 8px; color: #fff; font-size: 1rem; outline: none;" onfocus="this.style.borderColor='#c9a84c'" onblur="this.style.borderColor='#333'">
+          </div>
+          <button type="submit" id="em-submit-btn" style="width: 100%; padding: 16px; background: #c9a84c; color: #0a0a0a; font-size: 1.1rem; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#d4b65e'" onmouseout="this.style.background='#c9a84c'">Get My Exit Map →</button>
+        </form>
+
+        <div style="display: flex; justify-content: center; gap: 20px; margin-top: 16px; flex-wrap: wrap;">
+          <span style="color: #666; font-size: 0.85rem;"><span style="color: #4caf50;">✓</span> Free</span>
+          <span style="color: #666; font-size: 0.85rem;"><span style="color: #4caf50;">✓</span> Confidential</span>
+          <span style="color: #666; font-size: 0.85rem;"><span style="color: #4caf50;">✓</span> No obligation</span>
+        </div>
+      </div>
+
+      <p class="disclaimer">This calculator provides estimates based on general industry data. Actual business value depends on many factors including market conditions, deal structure, buyer type, and detailed financial analysis. For a professional valuation, consult an M&A advisor.</p>
+
+      <button class="btn" onclick="document.getElementById('results').style.display='none';document.getElementById('calculator').style.display='block';" style="background: #333; color: #fff; margin-top: 16px;">Recalculate</button>
+    </div>
+  </div>
+
+  <footer>
+    <p><a href="https://jeanlouishardy.com">Jean Louis Hardy</a> | Exit Advisory for service business Owners</p>
+    <p style="margin-top: 8px;">3555 Timmons Ln, Ste 1140, Houston, TX 77027 | 713-344-7420</p>
+    <p style="margin-top: 8px;"><a href="/blog/">Blog</a> | <a href="/watch.html">Free Training</a> | <a href="/assessment.html">Exit Risk Assessment</a></p>
+  </footer>
+
+  <script>
+  const ynState = {};
+
+  function ynSelect(btn) {
+    const q = btn.dataset.q;
+    const v = parseInt(btn.dataset.v);
+    ynState[q] = v;
+
+    // Style buttons
+    const btns = btn.parentElement.querySelectorAll('.yn-btn');
+    btns.forEach(b => b.className = 'yn-btn');
+    btn.className = 'yn-btn ' + (v === 1 ? 'yes-active' : 'no-active');
+
+    // Update score bar
+    updateScoreBar();
+  }
+
+  function updateScoreBar() {
+    const answered = Object.keys(ynState).length;
+    if (answered < 3) { document.getElementById('score-bar').style.display = 'none'; return; }
+    document.getElementById('score-bar').style.display = 'block';
+
+    const yesCount = Object.values(ynState).reduce((a, b) => a + b, 0);
+    const pct = Math.round((yesCount / 12) * 100);
+    const fill = document.getElementById('score-fill');
+    fill.style.width = pct + '%';
+    fill.style.background = pct >= 70 ? '#4caf50' : pct >= 40 ? '#ff9800' : '#f44336';
+
+    const label = document.getElementById('score-label');
+    label.textContent = yesCount + '/12 (' + pct + '%)';
+    label.style.color = pct >= 70 ? '#4caf50' : pct >= 40 ? '#ff9800' : '#f44336';
+  }
+
+  function calculate() {
+    const revenue = parseFloat(document.getElementById('revenue').value) || 0;
+    const ebitda = parseFloat(document.getElementById('ebitda').value) || 0;
+    const industry = document.getElementById('industry').value;
+
+    if (ebitda <= 0) { alert('Please enter your EBITDA.'); return; }
+
+    // Count yes/no answers
+    const questions = {
+      q1:  { name: 'Owner Independence (90-day test)', weight: 0.8 },
+      q2:  { name: 'Documented SOPs', weight: 0.5 },
+      q3:  { name: 'Recurring Revenue (50%+)', weight: 0.6 },
+      q4:  { name: 'Customer Diversification', weight: 0.4 },
+      q5:  { name: 'EBITDA Growth', weight: 0.5 },
+      q6:  { name: 'Management Team', weight: 0.6 },
+      q7:  { name: 'Clean Financials', weight: -0.5 },
+      q8:  { name: 'Training Systems', weight: 0.3 },
+      q9:  { name: 'Facility Security', weight: -0.3 },
+      q10: { name: 'Equipment Condition', weight: -0.3 },
+      q11: { name: 'No Legal Issues', weight: -0.5 },
+      q12: { name: 'Key Employee Retention', weight: -0.4 }
+    };
+
+    let boost = 0;  // yes = add to multiple
+    let deduct = 0; // no on risk questions = subtract from multiple
+    const results = [];
+
+    for (const [key, q] of Object.entries(questions)) {
+      const val = ynState[key] !== undefined ? ynState[key] : 0;
+      if (q.weight > 0) {
+        // Positive factors: yes = boost, no = nothing
+        if (val === 1) boost += q.weight;
+        results.push({ name: q.name, answered: val, type: 'boost', weight: q.weight });
+      } else {
+        // Risk factors: no = deduct, yes = nothing
+        if (val === 0) deduct += q.weight; // weight is negative
+        results.push({ name: q.name, answered: val, type: 'risk', weight: q.weight });
+      }
+    }
+
+    // Base multiples by industry
+    const baseMultiples = {
+      plumbing: [3.5, 7.5], hvac: [3.5, 8.0], electrical: [3.0, 7.0],
+      pest_control: [4.0, 8.0], landscaping: [3.0, 6.5], roofing: [3.0, 6.5],
+      construction: [2.5, 6.0], other: [3.0, 7.0]
+    };
+
+    const [baseMin, baseMax] = baseMultiples[industry];
+    const midpoint = (baseMin + baseMax) / 2;
+
+    // Start at midpoint, add boosts, apply deductions
+    const multiple = Math.max(baseMin, Math.min(baseMax, midpoint + boost + deduct));
+    const lowMultiple = Math.max(baseMin, multiple - 0.5);
+    const highMultiple = Math.min(baseMax, multiple + 0.5);
+
+    const estValue = ebitda * multiple;
+    const lowValue = ebitda * lowMultiple;
+    const highValue = ebitda * highMultiple;
+
+    function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+
+    document.getElementById('est-value').textContent = fmt(estValue);
+    document.getElementById('est-range').textContent = 'Range: ' + fmt(lowValue) + ' - ' + fmt(highValue);
+    document.getElementById('est-multiple').textContent = multiple.toFixed(1) + 'x EBITDA';
+    const yesCount = Object.values(ynState).reduce((a, b) => a + b, 0);
+    document.getElementById('multiple-context').textContent =
+      'Industry range: ' + baseMin + 'x - ' + baseMax + 'x | Score: ' + yesCount + '/12';
+
+    // Factor cards
+    // Build factor cards from yes/no results
+    let boostHtml = '';
+    let riskHtml = '';
+
+    results.forEach(r => {
+      if (r.type === 'boost') {
+        const cls = r.answered === 1 ? 'good' : 'bad';
+        const label = r.answered === 1 ? '+' + r.weight.toFixed(1) + 'x' : 'Missing';
+        boostHtml += '<div class="factor"><div class="name">' + r.name + '</div><div class="score ' + cls + '">' + label + '</div></div>';
+      } else {
+        const cls = r.answered === 1 ? 'good' : 'bad';
+        const label = r.answered === 1 ? 'Clear' : r.weight.toFixed(1) + 'x';
+        riskHtml += '<div class="factor"><div class="name">' + r.name + '</div><div class="score ' + cls + '">' + label + '</div></div>';
+      }
+    });
+
+    document.getElementById('factor-cards').innerHTML = boostHtml;
+
+    if (riskHtml) {
+      document.getElementById('deduction-cards').innerHTML = riskHtml;
+      document.getElementById('deduction-section').style.display = 'block';
+      const dedTotal = deduct;
+      document.getElementById('deduction-total').textContent = dedTotal === 0 ? 'No deductions - clean!' : dedTotal.toFixed(1) + 'x total risk deduction';
+    } else {
+      document.getElementById('deduction-section').style.display = 'none';
+    }
+
+    document.getElementById('calculator').style.display = 'none';
+    document.getElementById('results').style.display = 'block';
+    window.scrollTo(0, 0);
+
+    // GA4 event
+    if (typeof gtag === 'function') {
+      gtag('event', 'calculator_submit', {
+        industry: industry,
+        revenue_range: revenue > 20000000 ? '20M+' : revenue > 10000000 ? '10-20M' : revenue > 5000000 ? '5-10M' : 'under5M',
+        score: yesCount,
+        multiple: multiple.toFixed(1)
+      });
+    }
+  }
+
+  function submitExitMap(e) {
+    e.preventDefault();
+    var firstName = document.getElementById('em-firstName').value;
+    var phone = document.getElementById('em-phone').value;
+    var email = document.getElementById('em-email').value;
+    var btn = document.getElementById('em-submit-btn');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+
+    fetch('https://arena-api.jean-475.workers.dev/api/lead-capture/upgrade', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstName: firstName,
+        phone: phone,
+        email: email,
+        source: 'arena-calculator',
+        step: 'exit-map',
+        tags: ['phone-captured', 'exit-map-requested', 'qualified-lead'],
+        locationId: 'LSvdgiiT7ManCRx9CCwE'
+      })
+    }).then(function() {
+      btn.textContent = '✓ Exit Map Requested!';
+      btn.style.background = '#4caf50';
+      btn.style.color = '#fff';
+      var card = document.getElementById('exit-map-card');
+      var form = document.getElementById('exit-map-form');
+      form.innerHTML = '<p style="color: #4caf50; font-size: 1.1rem; font-weight: 600; margin: 16px 0;">We\'ll send your personalized Exit Map shortly.</p><p style="color: #999; font-size: 0.9rem;">Check your email and phone for next steps.</p>';
+    }).catch(function() {
+      btn.textContent = 'Get My Exit Map →';
+      btn.disabled = false;
+      btn.style.opacity = '1';
+    });
+
+    if (typeof gtag === 'function') {
+      gtag('event', 'exit_map_request', { event_category: 'lead', source: 'arena-calculator' });
+    }
+  }
+  </script>
+</body>
+</html>
